@@ -1,59 +1,84 @@
-# AnagramsFrontend
+BSG Anagrams Application
+============================
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.1.
+As part of our recruitment process, to help us to understand your level of proficiency, we would like you to create a solution for our anagram problem.
 
-## Development server
+Instructions
+------------
+1. **Read the instructions and implement the algorithm described below**
 
-To start a local development server, run:
+This assignment requires you to implement and expose an algorithm that counts the **number of anagrams** found within the **included dictionary** for all **word lengths** in the dictionary.
 
-```bash
-ng serve
-```
+The definition of an anagram can be found here: https://www.google.com/search?q=definition+anagram
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Your code should:
 
-## Code scaffolding
+- Make use of the included file `Dictionary.txt`
+- Cater for words of any length
+- Produce the **correct output**, run as **efficiently** as possible and be **production ready**
+- As described in the next sections, You'll be required to:
+    - Expose this algorithm via a rest service and
+    - Consume and display the results of your algorithm in the form: `Words with the character length of x had y anagrams`
+    - Include the total time in milliseconds it takes for your algorithm to calculate the required results
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
+NB:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- You can structure your solution in any way that you feel will help optimize execution speed, memory usage etc.
+- Feel free to use Google when crafting your solution.
+- Document your assumptions as comments in your code.
+- This assignment only requires you to count anagrams that are **contained** in the provided dictionary.
+- Hint: We are not asking you to calculate all permutations of letters of a single word.
 
-```bash
-ng generate --help
-```
 
-## Building
+2. **Create a RESTful service that is able to do the following actions against the provided dictionary/collection**
 
-To build the project run:
+- Add a new word
+- Retrieve all words
+- Delete a word
+- Retrieve a list of anagrams for a given word
+- Retrieve a list of the counts of anagrams for all word lengths in the dictionary/collection, please note:
+    - This requires you to expose the algorithm described in the previous section
+    - Your code should be dynamic enough to take into consideration all activities that have occurred against the dictionary, e.g. words added/deleted
 
-```bash
-ng build
-```
+3. **Create a frontend that is able to consume the above service and is able to allow the user to do the following actions against the provided dictionary/collection:**
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- Capture and save a new word
+- Retrieve and display all words
+- Delete a word
+- Retrieve and display a list of anagrams for a given word
+- Retrieve and display a list of the counts of anagrams for all word lengths in the dictionary/collection. Please note:
+    - This should be in the form: `Words with the character length of x had y anagrams`
+    - This must also display the total time (in milliseconds) it took to calculate the result
 
-## Running unit tests
+Optional/Bonus Instructions
+---------------------------
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+The following is not required but would be nice to see and help us gauge your understanding of certain concepts.
 
-```bash
-ng test
-```
+1. Consider implementing the following when designing your backend
 
-## Running end-to-end tests
+    - Persistence
+    - Sorting and pagination
+    - Caching
+    - Automated tests
 
-For end-to-end (e2e) testing, run:
+2. Consider using free services from a cloud platform to deploy your application
 
-```bash
-ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Restrictions
+------------
 
-## Additional Resources
+1. Language and Frameworks - see below our preferred languages and frameworks for the submission of your solution
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+    - Frontend: Angular or React
+    - Backend:
+        - Java and Spring
+        - C#
+
+NB: Feel free to use any combination of the above
+
+Run locally with docker
+------------
+- docker build -t anagrams-frontend .
+- docker run -d -p 8081:80 anagrams-frontend
