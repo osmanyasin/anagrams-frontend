@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AnagramsComponent } from './anagrams/anagrams.component';
-import { WordListComponent } from './word-list/word-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [WordListComponent, AnagramsComponent, RouterModule],
+  imports: [RouterModule],
   template: `
     <h1>BSG Anagrams Application</h1>
     <nav>

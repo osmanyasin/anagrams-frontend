@@ -36,35 +36,33 @@ export class AnagramsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // Get anagrams for a word
   getAnagrams(): void {
     if (this.word.trim()) {
       this.loading = true;
-      this.anagramsService.getAnagrams(this.word).subscribe(
-        (data) => {
+      this.anagramsService.getAnagrams(this.word).subscribe({
+        next: (data) => {
           this.anagrams = data;
           this.loading = false;
         },
-        (error) => {
+        error: (error) => {
           this.loading = false;
           console.error('Error fetching anagrams:', error);
-        }
-      );
+        },
+      });
     }
   }
 
-  // Get anagram count summary
   getAnagramCountSummary(): void {
     this.loadingSummary = true;
-    this.anagramsService.getAnagramCountSummary().subscribe(
-      (data) => {
+    this.anagramsService.getAnagramCountSummary().subscribe({
+      next: (data) => {
         this.anagramCounts = data;
         this.loadingSummary = false;
       },
-      (error) => {
+      error: (error) => {
         this.loadingSummary = false;
         console.error('Error fetching anagram count summary:', error);
-      }
-    );
+      },
+    });
   }
 }

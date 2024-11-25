@@ -38,7 +38,7 @@ export class WordListComponent implements OnInit {
   constructor(private anagramService: AnagramsService) { }
 
   ngOnInit() {
-    this.refreshTable();
+    this.loadWords();
   }
 
   loadWords() {
@@ -69,9 +69,10 @@ export class WordListComponent implements OnInit {
   }
 
   deleteWord(word: string) {
+    console.log('!!!!!!!!! -> ', word)
     this.anagramService.deleteWord(word).subscribe({
       next: () => {
-        this.loadWords();  // Reload the word list after deletion
+        this.loadWords();
       },
       error: (error) => {
         console.error('Error deleting word:', error);
