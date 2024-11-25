@@ -1,0 +1,40 @@
+<div class="anagrams-container">
+  <mat-card class="anagrams-card">
+    <mat-card-header>
+      <mat-card-title>Anagrams</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="get-anagrams">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Enter word to get anagrams</mat-label>
+          <input matInput [(ngModel)]="word" placeholder="Enter word" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="getAnagrams()">Get Anagrams</button>
+        <div *ngIf="loading" class="loading-spinner">
+          <mat-spinner diameter="24"></mat-spinner>
+        </div>
+
+        <div *ngIf="anagrams.length">
+          <mat-list>
+            <mat-list-item *ngFor="let anagram of anagrams">{{ anagram }}</mat-list-item>
+          </mat-list>
+        </div>
+      </div>
+
+      <div class="anagram-summary">
+        <mat-divider></mat-divider>
+        <h3>Anagram Count Summary</h3>
+        <button mat-raised-button color="accent" (click)="getAnagramCountSummary()">Get Anagram Count Summary</button>
+        <div *ngIf="loadingSummary" class="loading-spinner">
+          <mat-spinner diameter="24"></mat-spinner>
+        </div>
+
+        <mat-list *ngIf="anagramCounts.length">
+          <mat-list-item *ngFor="let summary of anagramCounts">
+            Length: {{ summary.length }} - Anagram Count: {{ summary.anagramCount }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

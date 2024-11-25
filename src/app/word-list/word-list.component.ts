@@ -1,4 +1,3 @@
-// words-list.component.ts
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,9 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
+import { AnagramsService } from '../services/anagrams.service';
 
 interface Word {
-  id: number;
   word: string;
 }
 
@@ -25,34 +24,62 @@ interface Word {
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './word-list.component.html',
   styleUrls: ['./word-list.component.css']
 })
 export class WordListComponent implements OnInit {
   displayedColumns: string[] = ['word', 'actions'];
-  dataSource = new MatTableDataSource<Word>([
-    {id: 1, word: 'hello'},
-    {id: 2, word: 'world'},
-    // ... more words
-  ]);
+  dataSource = new MatTableDataSource<Word>();
   newWord: string = '';
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  constructor(private anagramService: AnagramsService) { }
+
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.refreshTable();
+  }
+
+  loadWords() {
+    this.anagramService.getWords(10, 0).subscribe({
+      next: (words: string[]) => {
+        const wordData: Word[] = words.map(word => ({ word }));
+        this.dataSource.data = wordData;
+        this.refreshTable();
+      },
+      error: (error) => {
+        console.error('Error fetching words:', error);
+      }
+    });
   }
 
   addWord() {
     if (this.newWord.trim() !== '') {
-      const newId = this.dataSource.data.length + 1;
-      this.dataSource.data = [...this.dataSource.data, { id: newId, word: this.newWord }];
-      this.newWord = '';
+      this.anagramService.addNewWord(this.newWord).subscribe({
+        next: () => {
+          this.loadWords();  // Reload the word list after adding a new word
+          this.newWord = '';  // Clear the input field
+        },
+        error: (error) => {
+          console.error('Error adding word:', error);
+        }
+      });
     }
   }
 
-  deleteWord(id: number) {
-    this.dataSource.data = this.dataSource.data.filter(word => word.id !== id);
+  deleteWord(word: string) {
+    this.anagramService.deleteWord(word).subscribe({
+      next: () => {
+        this.loadWords();  // Reload the word list after deletion
+      },
+      error: (error) => {
+        console.error('Error deleting word:', error);
+      }
+    });
+  }
+
+  refreshTable() {
+    this.dataSource.paginator = this.paginator;
   }
 }

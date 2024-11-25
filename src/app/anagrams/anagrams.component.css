@@ -1,0 +1,38 @@
+.anagrams-container {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .anagrams-card {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .get-anagrams {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .anagram-summary {
+    margin-top: 20px;
+  }
+  
+  mat-list {
+    margin-top: 10px;
+  }
+  
+  mat-divider {
+    margin: 20px 0;
+  }
+  
